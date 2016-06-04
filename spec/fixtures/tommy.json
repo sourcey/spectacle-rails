@@ -37,8 +37,8 @@
     "paths": {
         "/user/accounts": {
             "get": {
-                "summary": "List of Accounts including Employer(s)",
-                "description": "Returns different accounts with its type (user, own employer, other employer) *Page 3_Account (part1)\n",
+                "summary": "List of Accounts including Team(s)",
+                "description": "Returns different accounts with its type (user, own team, other team) *Page 3_Account (part1)\n",
                 "tags": [
                     "User"
                 ],
@@ -84,27 +84,27 @@
                 }
             }
         },
-        "/employer/{employer_id}": {
+        "/team/{team_id}": {
             "get": {
-                "summary": "Employer Own Profile",
-                "description": "Employer profile. \n*Pages 3_Account_EmployerProfile p1, 3_Account_EmployerProfile p2\n",
+                "summary": "Team Own Profile",
+                "description": "Team profile. \n*Pages 3_Account_TeamProfile p1, 3_Account_TeamProfile p2\n",
                 "parameters": [
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "Unique employer identifier to be used for fetching specific employer profile data."
+                        "description": "Unique team identifier to be used for fetching specific team profile data."
                     }
                 ],
                 "tags": [
-                    "Employer"
+                    "Team"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Profile information for an employer",
+                        "description": "Profile information for an team",
                         "schema": {
-                            "$ref": "#/definitions/EmployerOwnProfile"
+                            "$ref": "#/definitions/TeamOwnProfile"
                         }
                     },
                     "default": {
@@ -116,32 +116,32 @@
                 }
             },
             "put": {
-                "summary": "Update Employer Data",
-                "description": "This updates individual or group of employer's records\n*Pages 3_Account_EmployerProfile_*\n",
+                "summary": "Update Team Data",
+                "description": "This updates individual or group of team's records\n*Pages 3_Account_TeamProfile_*\n",
                 "parameters": [
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "Unique employer identifier to be used for fetching specific employer profile data."
+                        "description": "Unique team identifier to be used for fetching specific team profile data."
                     },
                     {
                         "in": "body",
                         "name": "body",
                         "required": false,
-                        "description": "Unique employer identifier to be used for fetching specific employer profile data.",
+                        "description": "Unique team identifier to be used for fetching specific team profile data.",
                         "schema": {
-                            "$ref": "#/definitions/EmployerOwnProfile"
+                            "$ref": "#/definitions/TeamOwnProfile"
                         }
                     }
                 ],
                 "tags": [
-                    "Employer"
+                    "Team"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employer update success"
+                        "description": "Team update success"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -152,17 +152,17 @@
                 }
             }
         },
-        "/employer/employees/listbylocation/{employer_id}/{location_id}": {
+        "/team/team_members/listbylocation/{team_id}/{location_id}": {
             "get": {
-                "summary": "Employer Employee List by Location",
-                "description": "List all employees under the employer's location\n",
+                "summary": "Team TeamMember List by Location",
+                "description": "List all team_members under the team's location\n",
                 "parameters": [
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "Unique employer identifier to be used for fetching specific employer profile data."
+                        "description": "Unique team identifier to be used for fetching specific team profile data."
                     },
                     {
                         "name": "location_id",
@@ -172,12 +172,12 @@
                     }
                 ],
                 "tags": [
-                    "Employees",
-                    "Employer"
+                    "TeamMembers",
+                    "Team"
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of employees profile",
+                        "description": "List of team_members profile",
                         "schema": {
                             "$ref": "#/definitions/UserProfile"
                         }
@@ -191,24 +191,24 @@
                 }
             }
         },
-        "/employer/employees": {
+        "/team/team_members": {
             "get": {
-                "summary": "Employer Employee List",
+                "summary": "Team TeamMember List",
                 "parameters": [
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "query",
                         "required": true,
                         "type": "string",
-                        "description": "Unique employer identifier to be used for fetching specific employer profile data."
+                        "description": "Unique team identifier to be used for fetching specific team profile data."
                     }
                 ],
                 "tags": [
-                    "Employees"
+                    "TeamMembers"
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of employees profile",
+                        "description": "List of team_members profile",
                         "schema": {
                             "$ref": "#/definitions/UserProfile"
                         }
@@ -222,24 +222,24 @@
                 }
             }
         },
-        "/employee/{employee_id}": {
+        "/team_member/{team_member_id}": {
             "get": {
-                "summary": "Employee Profile",
-                "description": "E_Employee-Profile (part1)\n",
+                "summary": "TeamMember Profile",
+                "description": "E_TeamMember-Profile (part1)\n",
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
                     }
                 ],
                 "tags": [
-                    "Employee"
+                    "TeamMember"
                 ],
                 "responses": {
                     "200": {
-                        "description": "employee profile",
+                        "description": "team_member profile",
                         "schema": {
                             "$ref": "#/definitions/UserProfile"
                         }
@@ -253,13 +253,13 @@
                 }
             }
         },
-        "/employee/unavailability/{employee_id}/{date_start}/{date_end}": {
+        "/team_member/unavailability/{team_member_id}/{date_start}/{date_end}": {
             "get": {
-                "summary": "Employee Profile Availability",
-                "description": "E_Employee-Profile_Availability (Calendar View - date clicked)\n",
+                "summary": "TeamMember Profile Availability",
+                "description": "E_TeamMember-Profile_Availability (Calendar View - date clicked)\n",
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -278,11 +278,11 @@
                     }
                 ],
                 "tags": [
-                    "Employee"
+                    "TeamMember"
                 ],
                 "responses": {
                     "200": {
-                        "description": "employee unavailability within the current selecte date range",
+                        "description": "team_member unavailability within the current selecte date range",
                         "schema": {
                             "$ref": "#/definitions/Unavailability"
                         }
@@ -296,10 +296,10 @@
                 }
             }
         },
-        "/employee/unavailability": {
+        "/team_member/unavailability": {
             "post": {
-                "summary": "Add Employee Unavailability",
-                "description": "E_Employee-Profile_Availability (Calendar View - date clicked)\n",
+                "summary": "Add TeamMember Unavailability",
+                "description": "E_TeamMember-Profile_Availability (Calendar View - date clicked)\n",
                 "tags": [
                     "Unavailability"
                 ],
@@ -327,16 +327,16 @@
                 }
             }
         },
-        "/employee/unavailability/{employee_unavailability_id}": {
+        "/team_member/unavailability/{team_member_unavailability_id}": {
             "delete": {
-                "summary": "Delete Employee Unavailability",
-                "description": "E_Employee-Profile_Availability_Edit (Delete confirmation)\n",
+                "summary": "Delete TeamMember Unavailability",
+                "description": "E_TeamMember-Profile_Availability_Edit (Delete confirmation)\n",
                 "tags": [
                     "Unavailability"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_unavailability_id",
+                        "name": "team_member_unavailability_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -355,13 +355,13 @@
                 }
             }
         },
-        "/employee/shift/{employee_id}/{date_start}/{date_end}": {
+        "/team_member/shift/{team_member_id}/{date_start}/{date_end}": {
             "get": {
-                "summary": "Employee Profile Shifts",
-                "description": "E_Employee-Profile_Shifts (calendar view – clicked)\nE_Employee-Profile_Shifts (List View)\n",
+                "summary": "TeamMember Profile Shifts",
+                "description": "E_TeamMember-Profile_Shifts (calendar view – clicked)\nE_TeamMember-Profile_Shifts (List View)\n",
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -380,13 +380,13 @@
                     }
                 ],
                 "tags": [
-                    "Employee"
+                    "TeamMember"
                 ],
                 "responses": {
                     "200": {
-                        "description": "employee shifts within the current selecte date range",
+                        "description": "team_member shifts within the current selecte date range",
                         "schema": {
-                            "$ref": "#/definitions/EmployeeShifts"
+                            "$ref": "#/definitions/TeamMemberShifts"
                         }
                     },
                     "default": {
@@ -398,12 +398,12 @@
                 }
             }
         },
-        "/employer/shiftbylocation/calendar/{employer_id}/{location_id}/{date_start}/{date_end}": {
+        "/team/shiftbylocation/calendar/{team_id}/{location_id}/{date_start}/{date_end}": {
             "get": {
                 "summary": "Employe Shifts",
                 "parameters": [
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -432,9 +432,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "employer shifts count within the current selecte date range",
+                        "description": "team shifts count within the current selecte date range",
                         "schema": {
-                            "$ref": "#/definitions/EmployerShiftsMonth"
+                            "$ref": "#/definitions/TeamShiftsMonth"
                         }
                     },
                     "default": {
@@ -446,12 +446,12 @@
                 }
             }
         },
-        "/employer/shiftbylocation/list/{employer_id}/{location_id}/{date_start}/{date_end}": {
+        "/team/shiftbylocation/list/{team_id}/{location_id}/{date_start}/{date_end}": {
             "get": {
                 "summary": "Employe Shifts",
                 "parameters": [
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -480,9 +480,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "employer shifts count within the current selecte date range",
+                        "description": "team shifts count within the current selecte date range",
                         "schema": {
-                            "$ref": "#/definitions/EmployerShifts"
+                            "$ref": "#/definitions/TeamShifts"
                         }
                     },
                     "default": {
@@ -496,10 +496,10 @@
         },
         "/shift/publish": {
             "put": {
-                "summary": "Publish Employer Shifts",
+                "summary": "Publish Team Shifts",
                 "parameters": [
                     {
-                        "name": "employer_shift_id",
+                        "name": "team_shift_id",
                         "in": "query",
                         "required": true,
                         "type": "integer"
@@ -521,12 +521,12 @@
                 }
             }
         },
-        "/shift/{employer_shift_id}": {
+        "/shift/{team_shift_id}": {
             "put": {
-                "summary": "Employer Shift Update",
+                "summary": "Team Shift Update",
                 "parameters": [
                     {
-                        "name": "employer_shift_id",
+                        "name": "team_shift_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -537,7 +537,7 @@
                         "required": false,
                         "description": "accepts shift form data.",
                         "schema": {
-                            "$ref": "#/definitions/EmployerShifts"
+                            "$ref": "#/definitions/TeamShifts"
                         }
                     }
                 ],
@@ -559,7 +559,7 @@
         },
         "/shift": {
             "post": {
-                "summary": "Add Employer Shift",
+                "summary": "Add Team Shift",
                 "parameters": [
                     {
                         "in": "body",
@@ -567,7 +567,7 @@
                         "required": false,
                         "description": "accepts shift form data.",
                         "schema": {
-                            "$ref": "#/definitions/EmployerShifts"
+                            "$ref": "#/definitions/TeamShifts"
                         }
                     }
                 ],
@@ -587,12 +587,12 @@
                 }
             }
         },
-        "/employee/shift/{employee_id}": {
+        "/team_member/shift/{team_member_id}": {
             "get": {
-                "summary": "Employee Shift",
+                "summary": "TeamMember Shift",
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -605,7 +605,7 @@
                     "200": {
                         "description": "shift added",
                         "schema": {
-                            "$ref": "#/definitions/EmployeeShift"
+                            "$ref": "#/definitions/TeamMemberShift"
                         }
                     },
                     "default": {
@@ -617,12 +617,12 @@
                 }
             }
         },
-        "/shift/scheduled/{employer_shift_id}": {
+        "/shift/scheduled/{team_shift_id}": {
             "get": {
-                "summary": "List Employees Scheduled on this Shift",
+                "summary": "List TeamMembers Scheduled on this Shift",
                 "parameters": [
                     {
-                        "name": "employer_shift_id",
+                        "name": "team_shift_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -633,7 +633,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "list of employees",
+                        "description": "list of team_members",
                         "schema": {
                             "$ref": "#/definitions/UserProfile"
                         }
@@ -647,18 +647,18 @@
                 }
             }
         },
-        "/shift/add/employee/{employer_shift_id}": {
+        "/shift/add/team_member/{team_shift_id}": {
             "post": {
-                "summary": "Add employee on shift",
+                "summary": "Add team_member on shift",
                 "parameters": [
                     {
-                        "name": "employer_shift_id",
+                        "name": "team_shift_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
                     },
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "query",
                         "required": true,
                         "type": "integer"
@@ -669,7 +669,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "add employee to shift"
+                        "description": "add team_member to shift"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -680,12 +680,12 @@
                 }
             }
         },
-        "/shift/employee/{employer_shift_assigned_id}/": {
+        "/shift/team_member/{team_shift_assigned_id}/": {
             "delete": {
-                "summary": "Remove employee on shift",
+                "summary": "Remove team_member on shift",
                 "parameters": [
                     {
-                        "name": "employer_shift_assigned_id",
+                        "name": "team_shift_assigned_id",
                         "in": "path",
                         "required": true,
                         "type": "integer"
@@ -696,7 +696,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "employee removed"
+                        "description": "team_member removed"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -707,10 +707,10 @@
                 }
             }
         },
-        "/user/employer/employee-profile/{location_id}": {
+        "/user/team/team_member-profile/{location_id}": {
             "get": {
-                "summary": "Employer Own Profile",
-                "description": "List all employees under the employer's location\n",
+                "summary": "Team Own Profile",
+                "description": "List all team_members under the team's location\n",
                 "parameters": [
                     {
                         "name": "location_id",
@@ -720,12 +720,12 @@
                     }
                 ],
                 "tags": [
-                    "Employees",
-                    "Employer"
+                    "TeamMembers",
+                    "Team"
                 ],
                 "responses": {
                     "200": {
-                        "description": "List of employees profile",
+                        "description": "List of team_members profile",
                         "schema": {
                             "$ref": "#/definitions/UserProfile"
                         }
@@ -747,7 +747,7 @@
                     }
                 ],
                 "summary": "Update User Data",
-                "description": "This updates individual or group of user's records\n*Pages 3_Account_EmployerProfile_*\n",
+                "description": "This updates individual or group of user's records\n*Pages 3_Account_TeamProfile_*\n",
                 "parameters": [
                     {
                         "in": "body",
@@ -778,7 +778,7 @@
         "/user/password": {
             "put": {
                 "summary": "Update User Data",
-                "description": "This updates individual or group of user's records\n*Pages 3_Account_EmployerProfile_*\n",
+                "description": "This updates individual or group of user's records\n*Pages 3_Account_TeamProfile_*\n",
                 "parameters": [
                     {
                         "name": "new_password",
@@ -831,17 +831,17 @@
                 }
             }
         },
-        "/employee/accept-employer/{employer_id}": {
+        "/team_member/accept-team/{team_id}": {
             "get": {
-                "summary": "Accept Employer",
+                "summary": "Accept Team",
                 "description": "4_Messages_ChatWindow_EmploymentOffer_Reject(confirm)\n4_Messages_ChatWindow_EmploymentOffer_Accept(confirm)\n",
                 "parameters": [
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "Employer ID"
+                        "description": "Team ID"
                     },
                     {
                         "name": "response",
@@ -884,7 +884,7 @@
         "/industry": {
             "get": {
                 "summary": "List all industries",
-                "description": "fetch industries, used in select/list\n*Page 3_Account_EmployerProfile (Industry select)\n",
+                "description": "fetch industries, used in select/list\n*Page 3_Account_TeamProfile (Industry select)\n",
                 "tags": [
                     "Industry"
                 ],
@@ -1012,7 +1012,7 @@
         },
         "/document/share/{document_id}": {
             "delete": {
-                "summary": "Remove employer to document share",
+                "summary": "Remove team to document share",
                 "tags": [
                     "Documents"
                 ],
@@ -1025,11 +1025,11 @@
                         "description": "Document ID"
                     },
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "query",
                         "required": true,
                         "type": "string",
-                        "description": "Employer ID"
+                        "description": "Team ID"
                     }
                 ],
                 "responses": {
@@ -1045,24 +1045,24 @@
                 }
             }
         },
-        "/employee/documents/shared/{employee_id}": {
+        "/team_member/documents/shared/{team_member_id}": {
             "get": {
-                "summary": "List all employee's documents",
+                "summary": "List all team_member's documents",
                 "tags": [
                     "Documents"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "Employee ID"
+                        "description": "TeamMember ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee document lists",
+                        "description": "TeamMember document lists",
                         "schema": {
                             "$ref": "#/definitions/Documents"
                         }
@@ -1076,9 +1076,9 @@
                 }
             }
         },
-        "/employee/document/shared/{document_id}": {
+        "/team_member/document/shared/{document_id}": {
             "get": {
-                "summary": "Employee's document Details",
+                "summary": "TeamMember's document Details",
                 "tags": [
                     "Documents"
                 ],
@@ -1088,12 +1088,12 @@
                         "in": "path",
                         "required": true,
                         "type": "string",
-                        "description": "Employee ID"
+                        "description": "TeamMember ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee document details",
+                        "description": "TeamMember document details",
                         "schema": {
                             "$ref": "#/definitions/Documents"
                         }
@@ -1107,19 +1107,19 @@
                 }
             }
         },
-        "/employee/locations/{employee_id}": {
+        "/team_member/locations/{team_member_id}": {
             "post": {
-                "summary": "Employee's list of locations",
+                "summary": "TeamMember's list of locations",
                 "tags": [
                     "Locations"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee ID"
+                        "description": "TeamMember ID"
                     },
                     {
                         "in": "body",
@@ -1133,7 +1133,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee location added"
+                        "description": "TeamMember location added"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -1144,24 +1144,24 @@
                 }
             }
         },
-        "/employee/location/{employee_location_id}": {
+        "/team_member/location/{team_member_location_id}": {
             "delete": {
-                "summary": "remove location from employee",
+                "summary": "remove location from team_member",
                 "tags": [
                     "Locations"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_location_id",
+                        "name": "team_member_location_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee Location ID"
+                        "description": "TeamMember Location ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successfully remove employees locations"
+                        "description": "Successfully remove team_members locations"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -1172,19 +1172,19 @@
                 }
             }
         },
-        "/employee/notes/{employee_id}": {
+        "/team_member/notes/{team_member_id}": {
             "post": {
-                "summary": "Add Employee's notes",
+                "summary": "Add TeamMember's notes",
                 "tags": [
                     "Notes"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee ID"
+                        "description": "TeamMember ID"
                     },
                     {
                         "in": "body",
@@ -1198,7 +1198,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee notes added"
+                        "description": "TeamMember notes added"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -1209,15 +1209,15 @@
                 }
             }
         },
-        "/employee/note/{employee_notes_id}": {
+        "/team_member/note/{team_member_notes_id}": {
             "delete": {
-                "summary": "Delte employee's note",
+                "summary": "Delte team_member's note",
                 "tags": [
                     "Notes"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_notes_id",
+                        "name": "team_member_notes_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
@@ -1226,7 +1226,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee note deleted"
+                        "description": "TeamMember note deleted"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -1237,24 +1237,24 @@
                 }
             }
         },
-        "/employee/roles/{employee_id}": {
+        "/team_member/roles/{team_member_id}": {
             "get": {
-                "summary": "Employee Role List",
+                "summary": "TeamMember Role List",
                 "tags": [
                     "Role"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee ID"
+                        "description": "TeamMember ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee role list",
+                        "description": "TeamMember role list",
                         "schema": {
                             "$ref": "#/definitions/Role"
                         }
@@ -1268,19 +1268,19 @@
                 }
             }
         },
-        "/employee/role": {
+        "/team_member/role": {
             "post": {
-                "summary": "Add Employee Role",
+                "summary": "Add TeamMember Role",
                 "tags": [
                     "Role"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "query",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee ID"
+                        "description": "TeamMember ID"
                     },
                     {
                         "in": "body",
@@ -1294,7 +1294,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee role added"
+                        "description": "TeamMember role added"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -1305,24 +1305,24 @@
                 }
             }
         },
-        "/employee/role/{employee_role_id}": {
+        "/team_member/role/{team_member_role_id}": {
             "get": {
-                "summary": "Get Employee Role Details",
+                "summary": "Get TeamMember Role Details",
                 "tags": [
                     "Role"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_role_id",
+                        "name": "team_member_role_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee Role ID"
+                        "description": "TeamMember Role ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee role details",
+                        "description": "TeamMember role details",
                         "schema": {
                             "$ref": "#/definitions/RoleDetails"
                         }
@@ -1336,24 +1336,24 @@
                 }
             }
         },
-        "/employee/role/variation/{employee_role_variation_id}": {
+        "/team_member/role/variation/{team_member_role_variation_id}": {
             "get": {
-                "summary": "Get Employee Role Variation Details",
+                "summary": "Get TeamMember Role Variation Details",
                 "tags": [
                     "Role"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_role_variation_id",
+                        "name": "team_member_role_variation_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee Role Variation ID"
+                        "description": "TeamMember Role Variation ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee role variation details",
+                        "description": "TeamMember role variation details",
                         "schema": {
                             "$ref": "#/definitions/RoleVariation"
                         }
@@ -1367,19 +1367,19 @@
                 }
             }
         },
-        "/employee/role/variation": {
+        "/team_member/role/variation": {
             "post": {
-                "summary": "Add Employee Role Variation",
+                "summary": "Add TeamMember Role Variation",
                 "tags": [
                     "Role"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_id",
+                        "name": "team_member_id",
                         "in": "query",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee Role Variation ID"
+                        "description": "TeamMember Role Variation ID"
                     },
                     {
                         "in": "body",
@@ -1393,7 +1393,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee role variation added"
+                        "description": "TeamMember role variation added"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -1404,24 +1404,24 @@
                 }
             }
         },
-        "/employee/role/variations/{employee_role_id}": {
+        "/team_member/role/variations/{team_member_role_id}": {
             "get": {
-                "summary": "Get Employee Role Variation List",
+                "summary": "Get TeamMember Role Variation List",
                 "tags": [
                     "Role"
                 ],
                 "parameters": [
                     {
-                        "name": "employee_role_id",
+                        "name": "team_member_role_id",
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "Employee Role ID"
+                        "description": "TeamMember Role ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Employee role details",
+                        "description": "TeamMember role details",
                         "schema": {
                             "$ref": "#/definitions/RoleVariation"
                         }
@@ -1586,9 +1586,9 @@
                 }
             }
         },
-        "/user/superfund/employer/{user_supperfund_id}": {
+        "/user/superfund/team/{user_supperfund_id}": {
             "get": {
-                "summary": "List All Employer with SuperFund",
+                "summary": "List All Team with SuperFund",
                 "tags": [
                     "SuperFund"
                 ],
@@ -1603,17 +1603,17 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "List Employer with superfund",
+                        "description": "List Team with superfund",
                         "schema": {
-                            "$ref": "#/definitions/UserEmployerSuperFund"
+                            "$ref": "#/definitions/UserTeamSuperFund"
                         }
                     }
                 }
             }
         },
-        "/user/superfund/employer/remove/{user_supperfund_id}": {
+        "/user/superfund/team/remove/{user_supperfund_id}": {
             "post": {
-                "summary": "Remove User Employer SupportFund",
+                "summary": "Remove User Team SupportFund",
                 "tags": [
                     "SuperFund"
                 ],
@@ -1626,16 +1626,16 @@
                         "description": "User SuperFund ID"
                     },
                     {
-                        "name": "employer_id",
+                        "name": "team_id",
                         "in": "query",
                         "required": true,
                         "type": "integer",
-                        "description": "Employer ID"
+                        "description": "Team ID"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "User Employer SuperFund successfully remove"
+                        "description": "User Team SuperFund successfully remove"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -1649,7 +1649,7 @@
         "/pay-approval-options": {
             "get": {
                 "summary": "List all Pay approval options",
-                "description": "used in select/list\n*Page 3_Account_EmployerProfile_PayRun (Approval Day Frequency select)\n",
+                "description": "used in select/list\n*Page 3_Account_TeamProfile_PayRun (Approval Day Frequency select)\n",
                 "tags": [
                     "Payroll"
                 ],
@@ -1666,7 +1666,7 @@
         "/pay-interval-options": {
             "get": {
                 "summary": "List all Pay interval options",
-                "description": "used in select/list\n*Page 3_Account_EmployerProfile_PayRun (Interval select)\n",
+                "description": "used in select/list\n*Page 3_Account_TeamProfile_PayRun (Interval select)\n",
                 "tags": [
                     "Payroll"
                 ],
@@ -1683,7 +1683,7 @@
         "/pay-release-options": {
             "get": {
                 "summary": "List all Pay release options",
-                "description": "used in select/list\n*Page 3_Account_EmployerProfile_PayRun (Interval select)\n",
+                "description": "used in select/list\n*Page 3_Account_TeamProfile_PayRun (Interval select)\n",
                 "tags": [
                     "Payroll"
                 ],
@@ -1700,7 +1700,7 @@
         "/tax-entity-type-options": {
             "get": {
                 "summary": "List all Tax entity Type",
-                "description": "used in select/list\n*Page 3_Account_EmployerProfile_Tax (Entity Type Select)\n",
+                "description": "used in select/list\n*Page 3_Account_TeamProfile_Tax (Entity Type Select)\n",
                 "tags": [
                     "Entity",
                     "Tax"
@@ -1718,7 +1718,7 @@
         "/tax-reporting-options": {
             "get": {
                 "summary": "List all Tax Reporting Option",
-                "description": "used in select/list\n*Page 3_Account_EmployerProfile_Tax (Reporting Period Select)\n",
+                "description": "used in select/list\n*Page 3_Account_TeamProfile_Tax (Reporting Period Select)\n",
                 "tags": [
                     "Reporting",
                     "Tax"
@@ -1735,13 +1735,13 @@
         }
     },
     "definitions": {
-        "EmployeeShift": {
+        "TeamMemberShift": {
             "properties": {
                 "user_id": {
                     "type": "integer",
                     "description": "User ID."
                 },
-                "employer_shift_assigned_id": {
+                "team_shift_assigned_id": {
                     "type": "integer",
                     "description": "Shift ID."
                 },
@@ -1822,102 +1822,102 @@
                 }
             }
         },
-        "EmployerOwnProfile": {
+        "TeamOwnProfile": {
             "properties": {
-                "employer_id": {
+                "team_id": {
                     "type": "integer",
-                    "description": "Employer ID."
+                    "description": "Team ID."
                 },
-                "employer_business_name": {
+                "team_name": {
                     "type": "string",
-                    "description": "Business name of the employer."
+                    "description": "Business name of the team."
                 },
-                "employer_iconurl": {
+                "team_iconurl": {
                     "type": "string",
-                    "description": "Icon URL/Thumbnail of the employer."
+                    "description": "Icon URL/Thumbnail of the team."
                 },
                 "user_name_last": {
                     "type": "string",
-                    "description": "Employer last name."
+                    "description": "Team last name."
                 },
                 "user_name_first": {
                     "type": "string",
-                    "description": "Employer first name."
+                    "description": "Team first name."
                 },
-                "employer_email": {
+                "team_email": {
                     "type": "string",
-                    "description": "Employer email."
+                    "description": "Team email."
                 },
-                "employer_phone": {
+                "team_phone": {
                     "type": "string",
-                    "description": "Employer phone number."
+                    "description": "Team phone number."
                 },
                 "industry_id": {
                     "type": "string",
-                    "description": "Employer industry."
+                    "description": "Team industry."
                 },
-                "employer_abn": {
+                "team_abn": {
                     "type": "string",
-                    "description": "Employer ABN number."
+                    "description": "Team ABN number."
                 },
-                "employer_acn": {
+                "team_acn": {
                     "type": "string",
-                    "description": "Employer ACN number."
+                    "description": "Team ACN number."
                 },
-                "employer_contact_email": {
+                "team_contact_email": {
                     "type": "string",
-                    "description": "Employer contact email."
+                    "description": "Team contact email."
                 },
-                "employer_contact_name": {
+                "team_contact_name": {
                     "type": "string",
-                    "description": "Employer contact phone."
+                    "description": "Team contact phone."
                 },
                 "payroll_interval_id": {
                     "type": "integer",
-                    "description": "Employer payroll interval id."
+                    "description": "Team payroll interval id."
                 },
                 "payroll_approval_id": {
                     "type": "integer",
-                    "description": "Employer payroll approval id."
+                    "description": "Team payroll approval id."
                 },
                 "payroll_release_id": {
                     "type": "integer",
-                    "description": "Employer payroll release id."
+                    "description": "Team payroll release id."
                 },
                 "tax_entity_id": {
                     "type": "integer",
-                    "description": "Employer tax entity id."
+                    "description": "Team tax entity id."
                 },
                 "tax_reporting_id": {
                     "type": "integer",
-                    "description": "Employer tax reporting id."
+                    "description": "Team tax reporting id."
                 },
-                "employer_tax_gst": {
+                "team_tax_gst": {
                     "type": "integer",
-                    "description": "Employer tax gst."
+                    "description": "Team tax gst."
                 },
-                "employer_tax_payrolltax": {
+                "team_tax_payrolltax": {
                     "type": "integer",
-                    "description": "Employer tax payroll tax."
+                    "description": "Team tax payroll tax."
                 },
                 "address": {
                     "type": "array",
-                    "description": "Full address of the employer.",
+                    "description": "Full address of the team.",
                     "items": {
-                        "$ref": "#/definitions/EmployerAddress"
+                        "$ref": "#/definitions/TeamAddress"
                     }
                 }
             }
         },
-        "EmployeeShifts": {
+        "TeamMemberShifts": {
             "properties": {
-                "employer_shift_assigned_id": {
+                "team_shift_assigned_id": {
                     "type": "integer"
                 },
-                "employer_id": {
+                "team_id": {
                     "type": "integer"
                 },
-                "employee_id": {
+                "team_member_id": {
                     "type": "integer"
                 },
                 "location_id": {
@@ -1940,12 +1940,12 @@
                 }
             }
         },
-        "EmployerShifts": {
+        "TeamShifts": {
             "properties": {
-                "employer_shift_id": {
+                "team_shift_id": {
                     "type": "integer"
                 },
-                "employer_id": {
+                "team_id": {
                     "type": "integer"
                 },
                 "location_id": {
@@ -1954,15 +1954,15 @@
                 "role_id": {
                     "type": "integer"
                 },
-                "employer_shift_time_start": {
+                "team_shift_time_start": {
                     "type": "string",
                     "description": "start date and time"
                 },
-                "employer_shift_time_end": {
+                "team_shift_time_end": {
                     "type": "string",
                     "description": "end date and time"
                 },
-                "employer_shift_repeat": {
+                "team_shift_repeat": {
                     "type": "boolean"
                 },
                 "notes": {
@@ -1970,9 +1970,9 @@
                 }
             }
         },
-        "EmployerShiftsMonth": {
+        "TeamShiftsMonth": {
             "properties": {
-                "employer_shift_id": {
+                "team_shift_id": {
                     "type": "integer"
                 },
                 "date": {
@@ -1990,31 +1990,31 @@
         },
         "Unavailability": {
             "properties": {
-                "employee_unavailability_id": {
+                "team_member_unavailability_id": {
                     "type": "integer",
                     "description": "unavailability id"
                 },
-                "employee_unavailability_date_start": {
+                "team_member_unavailability_date_start": {
                     "type": "string",
                     "description": "start date and time"
                 },
-                "employee_unavailability_date_endv": {
+                "team_member_unavailability_date_endv": {
                     "type": "string",
                     "description": "end date and time"
                 },
-                "employee_id": {
+                "team_member_id": {
                     "type": "integer",
-                    "description": "employee id"
+                    "description": "team_member id"
                 },
                 "notes": {
                     "type": "string",
                     "description": "notes"
                 },
-                "employee_unavailability_special_day": {
+                "team_member_unavailability_special_day": {
                     "type": "string",
                     "description": "special day"
                 },
-                "employee_unavailability_fullday": {
+                "team_member_unavailability_fullday": {
                     "type": "boolean",
                     "description": "Fullday or not"
                 }
@@ -2067,9 +2067,9 @@
                     "type": "integer",
                     "description": "Document ID"
                 },
-                "employer_id": {
+                "team_id": {
                     "type": "string",
-                    "description": "Employer ID"
+                    "description": "Team ID"
                 }
             }
         },
@@ -2144,9 +2144,9 @@
                     "type": "integer",
                     "description": "User Bank ID"
                 },
-                "employer_id": {
+                "team_id": {
                     "type": "integer",
-                    "description": "Employer ID"
+                    "description": "Team ID"
                 },
                 "user_bank_allotment_percent": {
                     "type": "string",
@@ -2195,18 +2195,18 @@
                 }
             }
         },
-        "UserEmployerSuperFund": {
+        "UserTeamSuperFund": {
             "properties": {
-                "user_employer_superfund_id": {
+                "user_team_superfund_id": {
                     "type": "integer"
                 },
                 "user_superfund_id": {
                     "type": "integer"
                 },
-                "employer_id": {
+                "team_id": {
                     "type": "integer"
                 },
-                "employer_name": {
+                "team_name": {
                     "type": "string"
                 },
                 "user_superfund_status": {
@@ -2219,7 +2219,7 @@
             "properties": {
                 "acount_id": {
                     "type": "integer",
-                    "description": "ID of the account, either id of the employer of id of the user."
+                    "description": "ID of the account, either id of the team of id of the user."
                 },
                 "display_name": {
                     "type": "string",
@@ -2231,35 +2231,35 @@
                 },
                 "account_type": {
                     "type": "string",
-                    "description": "Account Type(User, Own Employer, Employer)."
+                    "description": "Account Type(User, Own Team, Team)."
                 }
             }
         },
-        "EmployerAddress": {
+        "TeamAddress": {
             "properties": {
-                "employer_address_line1": {
+                "team_address_line1": {
                     "type": "string",
-                    "description": "Employer current address line one"
+                    "description": "Team current address line one"
                 },
-                "employer_address_line2": {
+                "team_address_line2": {
                     "type": "string",
-                    "description": "Employer current address line two"
+                    "description": "Team current address line two"
                 },
-                "employer_address_city": {
+                "team_address_city": {
                     "type": "string",
-                    "description": "Employer current city"
+                    "description": "Team current city"
                 },
-                "employer_postcode": {
+                "team_postcode": {
                     "type": "string",
-                    "description": "Employer current postcode"
+                    "description": "Team current postcode"
                 },
-                "employer_state": {
+                "team_state": {
                     "type": "string",
-                    "description": "Employer current state/province"
+                    "description": "Team current state/province"
                 },
                 "country_id": {
                     "type": "string",
-                    "description": "Employer current country"
+                    "description": "Team current country"
                 }
             }
         },
@@ -2371,10 +2371,10 @@
                 "location_id": {
                     "type": "integer"
                 },
-                "employee_location_id": {
+                "team_member_location_id": {
                     "type": "integer"
                 },
-                "employee_location_name": {
+                "team_member_location_name": {
                     "type": "string",
                     "description": "Location name"
                 }
@@ -2382,10 +2382,10 @@
         },
         "Role": {
             "properties": {
-                "employee_role_id": {
+                "team_member_role_id": {
                     "type": "integer"
                 },
-                "employee_id": {
+                "team_member_id": {
                     "type": "integer"
                 },
                 "role_id": {
@@ -2395,10 +2395,10 @@
         },
         "RoleDetails": {
             "properties": {
-                "employee_role_id": {
+                "team_member_role_id": {
                     "type": "integer"
                 },
-                "employee_id": {
+                "team_member_id": {
                     "type": "integer"
                 },
                 "last_shift": {
@@ -2414,10 +2414,10 @@
         },
         "RoleVariation": {
             "properties": {
-                "employee_role_variations_id": {
+                "team_member_role_variations_id": {
                     "type": "integer"
                 },
-                "employee_role_id": {
+                "team_member_role_id": {
                     "type": "integer"
                 },
                 "variations_type": {
@@ -2430,10 +2430,10 @@
         },
         "Note": {
             "properties": {
-                "employee_notes_id": {
+                "team_member_notes_id": {
                     "type": "integer"
                 },
-                "employee_id": {
+                "team_member_id": {
                     "type": "integer"
                 },
                 "to_user_id": {
@@ -2442,10 +2442,10 @@
                 "location_id": {
                     "type": "integer"
                 },
-                "employer_shift_id": {
+                "team_shift_id": {
                     "type": "integer"
                 },
-                "employee_notes": {
+                "team_member_notes": {
                     "type": "string",
                     "description": "Notes"
                 }

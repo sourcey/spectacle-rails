@@ -20,3 +20,4 @@ bak
 node_modules
 app/views/*/*
 vendor/assets/*/*
+!vendor/assets/stylesheets/spectacle-core.scss

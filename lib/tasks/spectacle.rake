@@ -1,10 +1,13 @@
 namespace :spectacle do
 
-  desc "Generate Spectacle static documentation"
-  task docs: [:environment] do |t,args|
-    # results = Spectacle::Generator.write_docs(Spectacle::Config.registered_apis)
-    # results.each do |k,v|
-    #   puts "#{k}: #{v[:processed].count} processed / #{v[:skipped].count} skipped"
-    # end
+  desc "Install Spectacle engine"
+  task install: [:environment] do |t,args|
+    Spectacle::DSL.install
+  end
+
+  desc "Generate Spectacle documentation"
+  task generate: [:environment] do |t,args|
+    Spectacle::DSL.generate
+    Spectacle::DSL.copy_static
   end
 end

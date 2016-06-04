@@ -1,3 +1,3 @@
 Spectacle::Engine.routes.draw do
-  root 'apidocs#show'
+  # root 'apidocs#show'
 end

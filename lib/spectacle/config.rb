@@ -1,79 +1,60 @@
 module Spectacle
   class Config
     class << self
-
-      def target_dir= value
-        @versions = value
-      end
-
-      def target_dir
-        @target_dir ||= 'public/apidocs'
-      end
-
-      def spec_file= value
-        @spec_file = value
-      end
-
+      attr_writer :spec_file
       def spec_file
-        @spec_file ||= 'public/swagger.json'
+        @spec_file || File.join(Rails.root, 'public/swagger.json')
       end
 
+      attr_writer :target_dir
+      def target_dir
+        @target_dir || File.join(Rails.root, 'public/v1/docs')
+      end
 
-      # @@base_api_controller = nil
+      attr_writer :logo_file
+      def logo_file
+        @logo_file || nil
+      end
+
+      attr_writer :embedded_mode
+      def embedded_mode
+        @embedded_mode || false
+      end
+
+      # Get the Spectacle library directory
       #
-      # def base_api_controller
-      #   @@base_api_controller || ActionController::Base
-      # end
+      # @return path
       #
-      # def base_api_controllers
-      #   Array(base_api_controller)
-      # end
-      #
-      # def base_api_controller=(controller)
-      #   @@base_api_controller = controller
-      # end
-      #
-      # alias_method :base_api_controllers=, :base_api_controller=
-      #
-      # def base_applications
-      #   Array(base_application)
-      # end
-      #
-      # def base_application
-      #   Rails.application
-      # end
-      #
-      # def register_apis(versions)
-      #   base_api_controllers.each do |controller|
-      #     controller.send(:include, ImpotentMethods)
+      attr_writer :spectacle_lib_dir
+      def spectacle_lib_dir
+        return @spectacle_lib_dir if @spectacle_lib_dir
+        if Gem.win_platform?
+          File.join(node_prefix, 'node_modules', 'spectacle-docs')
+        else
+          File.join(node_prefix, 'lib', 'node_modules', 'spectacle-docs')
+        end
+      end
+
+      # # Get the Spectacle bin directory
+      # #
+      # # @return path
+      # #
+      # def spectacle_bin_path
+      #   return @spectacle_bin_path if @spectacle_bin_path
+      #   if Gem.win_platform?
+      #     File.join(node_prefix, 'bin', 'spectacle')
+      #   else
+      #     File.join(node_prefix, 'spectacle')
       #   end
-      #   @versions = versions
-      # end
-      #
-      # def registered_apis
-      #   @versions ||= {}
-      # end
-      #
-      # def transform_path(path, api_version)
-      #   # This is only for overriding, so don't perform any path transformations by default.
-      #   path
-      # end
-      #
-      # def log_exception
-      #   yield
-      #   rescue => e
-      #     write_log(:error, e)
-      #     raise
-      # end
-      #
-      # def log_env_name
-      #   'SD_LOG_LEVEL'
-      # end
-      #
-      # def write_log(type, output)
-      #   $stderr.puts output if type == :error and ENV[log_env_name]=="1"
       # end
 
+      # Get the Node.js install prefix
+      #
+      # @return path
+      #
+      def node_prefix
+        `npm config get prefix`.strip
+      end
     end
   end
 end
