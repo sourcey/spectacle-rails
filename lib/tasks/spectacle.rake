@@ -1,13 +1,17 @@
 namespace :spectacle do
 
-  desc "Install Spectacle engine"
-  task install: [:environment] do |t,args|
+  desc "Install the spectacle-docs npm package globally"
+  task install: [:environment] do |t, args|
     Spectacle::DSL.install
   end
 
-  desc "Generate Spectacle documentation"
-  task generate: [:environment] do |t,args|
+  desc "Generate API documentation from your OpenAPI spec"
+  task generate: [:environment] do |t, args|
     Spectacle::DSL.generate
-    Spectacle::DSL.copy_static
+  end
+
+  desc "Validate your OpenAPI spec file"
+  task validate: [:environment] do |t, args|
+    Spectacle::DSL.validate
   end
 end

@@ -11,46 +11,7 @@ RSpec.configure do |config|
   config.color = true
 
   config.before(:each) do
-    Spectacle::Config.spec_file = '/home/kam/tommy/tommy/vendor/gems/spectacle/spec/fixtures/spec/tommy.json'
+    Spectacle::Config.reset!
+    Spectacle::Config.spec_file = File.join(File.dirname(__FILE__), 'fixtures/tommy.json')
   end
 end
-
-# DEFAULT_VER = Spectacle::DEFAULT_VER
-
-# def generate(config)
-#   Spectacle::Generator::write_docs(config)
-# end
-#
-# def stub_string_verb_route(verb, action, controller, spec)
-#   double('route', :verb => verb,
-#     :defaults => {:action => action, :controller => controller},
-#     :path => spec
-#   )
-# end
-#
-# def stub_route(verb, action, controller, spec)
-#   double('route', :verb => double('verb', :source => verb),
-#     :defaults => {:action => action, :controller => controller},
-#     :path => double('path', :spec => spec)
-#   )
-# end
-#
-# def get_api_paths(apis, path)
-#   apis.select{|api| api['path'] == path}
-# end
-#
-# def get_api_operations(apis, path)
-#   apis = get_api_paths(apis, path)
-#   apis.collect{|api| api['operations']}.flatten
-# end
-#
-# def get_api_operation(apis, path, method)
-#   operations = get_api_operations(apis, path)
-#   operations.each{|operation| return operation if operation['method'] == method.to_s}
-#   nil
-# end
-#
-# def get_api_parameter(api, name)
-#   api['parameters'].each{|param| return param if param['name'] == name}
-#   nil
-# end

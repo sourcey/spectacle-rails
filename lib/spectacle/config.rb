@@ -1,59 +1,50 @@
 module Spectacle
   class Config
     class << self
+      # Path to the OpenAPI/Swagger spec file (JSON or YAML)
       attr_writer :spec_file
       def spec_file
-        @spec_file || File.join(Rails.root, 'public/swagger.json')
+        @spec_file || File.join(Rails.root, 'public/openapi.yaml')
       end
 
-      attr_writer :target_dir
-      def target_dir
-        @target_dir || File.join(Rails.root, 'public/v1/docs')
+      # Output directory for generated docs
+      attr_writer :output_dir
+      def output_dir
+        @output_dir || File.join(Rails.root, 'public/docs')
       end
 
-      attr_writer :logo_file
-      def logo_file
-        @logo_file || nil
+      # Custom logo file path
+      attr_writer :logo
+      def logo
+        @logo || nil
       end
 
-      attr_writer :embedded_mode
-      def embedded_mode
-        @embedded_mode || false
+      # Generate embeddable output (no <html>/<body> tags)
+      attr_writer :embeddable
+      def embeddable
+        @embeddable || false
       end
 
-      # Get the Spectacle library directory
-      #
-      # @return path
-      #
-      attr_writer :spectacle_lib_dir
-      def spectacle_lib_dir
-        return @spectacle_lib_dir if @spectacle_lib_dir
-        if Gem.win_platform?
-          File.join(node_prefix, 'node_modules', 'spectacle-docs')
-        else
-          File.join(node_prefix, 'lib', 'node_modules', 'spectacle-docs')
-        end
+      # Embed all assets into a single HTML file
+      attr_writer :single_file
+      def single_file
+        @single_file || false
       end
 
-      # # Get the Spectacle bin directory
-      # #
-      # # @return path
-      # #
-      # def spectacle_bin_path
-      #   return @spectacle_bin_path if @spectacle_bin_path
-      #   if Gem.win_platform?
-      #     File.join(node_prefix, 'bin', 'spectacle')
-      #   else
-      #     File.join(node_prefix, 'spectacle')
-      #   end
-      # end
+      # Path to the spectacle CLI binary
+      # Defaults to the globally installed `spectacle` command via npx
+      attr_writer :spectacle_bin
+      def spectacle_bin
+        @spectacle_bin || 'npx spectacle'
+      end
 
-      # Get the Node.js install prefix
-      #
-      # @return path
-      #
-      def node_prefix
-        `npm config get prefix`.strip
+      def reset!
+        @spec_file = nil
+        @output_dir = nil
+        @logo = nil
+        @embeddable = nil
+        @single_file = nil
+        @spectacle_bin = nil
       end
     end
   end
